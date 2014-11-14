@@ -37,6 +37,20 @@ class FizzBuzz {
       .flatten
   }
 
+  def FizzBuzz3_naoshi(): Seq[String] = {
+    // 2の倍数は除外
+    (1 to 100)
+      .withFilter(_ % 2 != 0) // withFilter は中間リストを作らない
+      .map( i => {
+      (i % 3, i % 5) match {
+        case (0, 0) => "FizzBuzz"
+        case (0, _) => "Fizz"
+        case (_, 0) => "Buzz"
+        case _ => i.toString
+      }
+    })
+  }
+
   def FizzBuzz4(): String = {
     FizzBuzz()
       .mkString(",")
@@ -45,9 +59,9 @@ class FizzBuzz {
   def FizzBuzz5(): Long = {
     val list: Seq[String] = FizzBuzz()
     list
-      .filter (_.matches("""\d+"""))
+      .withFilter(_.matches("""\d+"""))
+      .map(_.toInt)
       .sum
-      .toLong
   }
 
 }
