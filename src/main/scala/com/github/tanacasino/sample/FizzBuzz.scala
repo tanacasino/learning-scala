@@ -4,6 +4,9 @@ object FizzBuzz extends App {
 
   execute1
   execute3
+  execute4
+
+
 
   def execute1 = {
     (1.to(100)).foreach { i =>
@@ -28,6 +31,20 @@ object FizzBuzz extends App {
       }
     }
     .foreach { println }
+  }
+
+  def execute4 = {
+    val join = (1 to 100)
+      .map { i =>
+        ((i % 3), (i % 5)) match {
+          case (0, 0) => "FizzBuzz"
+          case (0, _) => "Fizz"
+          case (_, 0) => "Buzz"
+          case (_, _) => i.toString
+        }
+      }
+      .mkString(",")
+    println(join)
   }
 
 }
