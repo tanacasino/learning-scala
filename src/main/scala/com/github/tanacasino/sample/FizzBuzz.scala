@@ -30,7 +30,7 @@ object FizzBuzz extends App {
   def fizzBuzzExcludeEvenNum = {
     println {
       (1 to 100)
-        .filter(_ % 2 == 0)
+        .filterNot(_ % 2 == 0)
         .map {
         case num if num % 15 == 0 => "FizzBuzz"
         case num if num % 3 == 0 => "Fizz"
