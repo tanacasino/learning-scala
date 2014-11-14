@@ -6,8 +6,23 @@ object FizzBuzz {
   def main(args: Array[String]): Unit = {
 
     // One liner
-    (1 to 100).map(x => x match { case x if x % 15 == 0 => "FizzBuzz"; case x if x % 5 == 0 => "Buzz"; case x if x % 3 == 0 => "Fizz"; case _ => x.toInt}).foreach(println)
+    // (1 to 100).map(x => x match { case x if x % 15 == 0 => "FizzBuzz"; case x if x % 5 == 0 => "Buzz"; case x if x % 3 == 0 => "Fizz"; case _ => x.toInt}).foreach(println)
 
+    /**
+     * 2の倍数を除外
+     */
+    // (1 to 100).filter(_ % 2 != 0).foreach(x => if (x % 15 == 0) println("FizzBuzz") else if(x % 5 == 0) println("Buzz") else if(x % 3 == 0) println("Fizz") else println(x.toString))
+
+    /**
+     * カンマ区切り
+     */
+    // val fizzBuzzCsv = (1 to 100).map(x => if (x % 15 == 0) "FizzBuzz" else if(x % 5 == 0) "Buzz" else if(x % 3 == 0) "Fizz" else x.toString).mkString("",",","")
+    // println(fizzBuzzCsv)
+
+    val fizzBuzzSum = (1 to 100).filter(x => x % 15 != 0 && x % 5 != 0 && x % 3 != 0).foldLeft(0) {
+      (sum, x) => sum + x
+    }
+    println(fizzBuzzSum)
 
     def fizzBuzz1(x: Int) = {
       x match {
