@@ -28,17 +28,15 @@ object FizzBuzz extends App {
 
   // Exclude Even Num
   def fizzBuzzExcludeEvenNum = {
-    println {
       (1 to 100)
         .filterNot(_ % 2 == 0)
         .map {
-        case num if num % 15 == 0 => "FizzBuzz"
-        case num if num % 3 == 0 => "Fizz"
-        case num if num % 5 == 0 => "Buzz"
-        case num => num.toString
-      }
-      .foreach(println)
-    }
+          case num if num % 15 == 0 => "FizzBuzz"
+          case num if num % 3 == 0 => "Fizz"
+          case num if num % 5 == 0 => "Buzz"
+          case num => num.toString
+        }
+        .foreach(println)
   }
 
   // Comma Separated
@@ -46,11 +44,11 @@ object FizzBuzz extends App {
     println {
       (1 to 100)
         .map {
-        case num if num % 15 == 0 => "FizzBuzz"
-        case num if num % 3 == 0 => "Fizz"
-        case num if num % 5 == 0 => "Buzz"
-        case num => num.toString
-      }
+          case num if num % 15 == 0 => "FizzBuzz"
+          case num if num % 3 == 0 => "Fizz"
+          case num if num % 5 == 0 => "Buzz"
+          case num => num.toString
+        }
         .mkString(",")
     }
   }
