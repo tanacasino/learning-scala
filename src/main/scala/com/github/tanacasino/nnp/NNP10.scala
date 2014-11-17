@@ -5,12 +5,12 @@ trait NNP10 {
 
   // P01 (*) Find the last element of a list.
   def last(list: List[Int]): Int = {
-    ???
+    list.last
   }
 
   // P02 (*) Find the last but one element of a list.
   def penultimate(list: List[Int]): Int = {
-    ???
+    list.drop(1).last
   }
 
   def nth(n: Int, list: List[Int]): Int = {
