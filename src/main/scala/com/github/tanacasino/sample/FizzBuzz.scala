@@ -22,13 +22,16 @@ object FizzBuzz extends App {
     }
   }
 
+  println()
   println("### 2の倍数を除外")
   (1 to 100).toList.filterNot(n => n % 2 == 0).map(n =>
     n match {
-      case n if (n % 15 == 0) => print("FizzBuzz,")
-      case n if (n % 3 == 0) => print("Fizz,")
-      case n if (n % 5 == 0) => print("Buzz,")
-      case _ => print(s"$n,")
+      case n if (n % 15 == 0) => "FizzBuzz,"
+      case n if (n % 3 == 0) => "Fizz,"
+      case n if (n % 5 == 0) => "Buzz,"
+      case _ => n
     }
-  )
+  ).foreach(print(_))
+
+  println("")
 }
