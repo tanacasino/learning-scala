@@ -54,13 +54,13 @@ object NNP {
 		def isPalindrome[A](ls: List[A]): Boolean = ls == ls.reverse
 
 
-/*
 		// P7 Flatten a nested list structure
 
 		def flatten(ls: List[Any]): List[Any] = {
-
+      ls.flatten
 		}
 
+    /*
 		// P8 Eliminate consecutive duplicates of list elements
 
 		def compress(ls: List[Symbol]): List[Symbol] = {
