@@ -1,5 +1,7 @@
 package com.github.tanacasino.nnp
 
+import scala.annotation.tailrec
+
 
 trait NNP10 {
 
@@ -31,9 +33,40 @@ trait NNP10 {
     list == list.reverse
   }
 
+  def flattenNotTailrec(nested: List[Any]): List[Any] = {
+    def innerFlatten(acc: List[Any], rest: List[Any]):List[Any] = {
+       rest match {
+         case Nil => acc
+         case head :: tail => head match {
+           case list: List[_] =>
+             val flattenHead = innerFlatten(List(), list.asInstanceOf[List[Any]])
+             innerFlatten(flattenHead ::: acc, tail)
+           case value: Any =>
+             innerFlatten(value :: acc, tail)
+         }
+       }
+    }
+    innerFlatten(List(), nested)
+      .sortWith((l, r) => l.asInstanceOf[Int] < r.asInstanceOf[Int])
+  }
+
   def flatten(nested: List[Any]): List[Any] = {
-    // うーん難しいですねー
-    nested.flatten
+    @tailrec
+    def innerFlatten(acc: List[Any], rest: List[Any]):List[Any] = {
+      rest match {
+        case Nil => acc
+        case head :: tail => head match {
+          case list: List[_] =>
+            innerFlatten(acc, list ::: tail)
+          case value: Any =>
+            innerFlatten(value :: acc, tail)
+        }
+      }
+    }
+    innerFlatten(List(), nested).sortBy {
+      case i: Int => i
+      case any => 0
+    }
   }
 
   def compress(list: List[Symbol]): List[Symbol] = {
