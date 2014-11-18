@@ -26,7 +26,7 @@ class WordCountSpec extends FlatSpec with Matchers {
   "memo" should "memo" in {
     val lines = List("apple banana", "orange apple mango", "kiwi papaya orange","mango orange muscat apple")
     val target = new WordCount
-    target.memo(lines)
+    //target.memo(lines)
 
   }
 
