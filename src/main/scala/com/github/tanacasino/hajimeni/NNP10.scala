@@ -78,17 +78,14 @@ trait NNP10 {
     def listToFlat(result: List[Any], source: List[Any]): List[Any] = {
       source match {
         case Nil => result
-        case head::tail => {
-          val r = head match {
-            case l: List[Any] => result ++ listToFlat(List.empty, l)
-            case _ => result :+ head
-          }
-          listToFlat(r, tail)
+        case head::tail => head match {
+          case l: List[Any] => listToFlat(result, l ++: tail)
+          case _ => listToFlat(head +: result, tail)
         }
       }
     }
 
-    listToFlat(List.empty, nested)
+    listToFlat(List.empty, nested).reverse
 
   }
 
@@ -96,29 +93,22 @@ trait NNP10 {
     def compressList(result: List[Symbol], source: List[Symbol]): List[Symbol] = {
       source match {
         case Nil => result
-        case head::tail => {
-          compressList(
-            if (result.isEmpty || result.last != head) result :+ head else result,
-            tail)
-        }
+        case head::tail if result.nonEmpty && result.head == head =>compressList(result, tail)
+        case head::tail => compressList(head +: result, tail)
       }
     }
-    compressList(List.empty, list)
+    compressList(List.empty, list).reverse
   }
 
   def pack(list: List[Symbol]): List[List[Symbol]] = {
     def packList(result: List[List[Symbol]], source: List[Symbol]): List[List[Symbol]] = {
       source match {
         case Nil => result
-        case head::tail => {
-          packList(
-            if (result.isEmpty || result.last.head != head) result :+ List(head) else result.init :+ (result.last :+ head),
-            tail
-          )
-        }
+        case head::tail if result.nonEmpty && result.head.contains(head) => packList((head +: result.head) +: result.tail, tail)
+        case head::tail => packList(List(head) +: result, tail)
       }
     }
-    packList(List.empty, list)
+    packList(List.empty, list).reverse
   }
 
   def encode(list: List[Symbol]): List[(Int, Symbol)] = {
