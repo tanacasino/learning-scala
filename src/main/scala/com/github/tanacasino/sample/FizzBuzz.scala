@@ -33,5 +33,7 @@ object FizzBuzz extends App {
     }
   ).foreach(print(_))
 
-  println("")
+  println()
+  println("### その5 fizbuzzなどの文字列になっていない数値の合計値を算出 flatmapなど使って格好よく")
+//  val sum (1 to 100).fil
 }

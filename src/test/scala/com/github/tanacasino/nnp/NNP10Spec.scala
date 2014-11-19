@@ -13,6 +13,11 @@ class NNP10Spec extends FunSpec with Matchers with NNP10 {
         last(List(1, 1, 2, 3, 5, 8)) should be (8)
       }
     }
+    describe("P01_acc") {
+      it("Find the last element of a list.") {
+        last1(List(1, 1, 2, 3, 5, 8)) should be (8)
+      }
+    }
 
     // P02 (*) Find the last but one element of a list.
     describe("P02") {
@@ -35,7 +40,7 @@ class NNP10Spec extends FunSpec with Matchers with NNP10 {
       }
     }
 
-    // P05 (*) Reverse a list.
+    // P05 (*) Reverse a list.\
     describe("P05") {
       it("Reverse a list") {
         reverse(List(1, 1, 2, 3, 5, 8)) should be (List(8, 5, 3, 2, 1, 1))
@@ -49,38 +54,38 @@ class NNP10Spec extends FunSpec with Matchers with NNP10 {
       }
     }
 
-    // P07 (**) Flatten a nested list structure.
-    describe("P07") {
-      it("Flatten a nested list structure.") {
-        flatten(List(List(1, 1), 2, List(3, List(5, 8)))) should be (List(1, 1, 2, 3, 5, 8))
-      }
-    }
-
-    // P08 (**) Eliminate consecutive duplicates of list elements.
-    // If a list contains repeated elements they should be replaced with a single copy of the element.
-    // The order of the elements should not be changed.
-    describe("P08") {
-      it("Eliminate consecutive duplicates of list elements.") {
-        compress(List('a, 'a, 'a, 'a, 'b, 'c, 'c, 'a, 'a, 'd, 'e, 'e, 'e, 'e)) should be (List('a, 'b, 'c, 'a, 'd, 'e))
-      }
-    }
-
-    // P09 (**) Pack consecutive duplicates of list elements into sublists.
-    // If a list contains repeated elements they should be placed in separate sublists.
-    describe("P09") {
-      it("Pack consecutive duplicates of list elements into sublists.") {
-        pack(List('a, 'a, 'a, 'a, 'b, 'c, 'c, 'a, 'a, 'd, 'e, 'e, 'e, 'e)) should be (List(List('a, 'a, 'a, 'a), List('b), List('c, 'c), List('a, 'a), List('d), List('e, 'e, 'e, 'e)))
-      }
-    }
-
-    // P10 (*) Run-length encoding of a list.
-    // Use the result of problem P09 to implement the so-called run-length encoding data compression method.
-    // Consecutive duplicates of elements are encoded as tuples (N, E) where N is the number of duplicates of the element E.
-    describe("P10") {
-      it("Run-length encoding of a list.") {
-        encode(List('a, 'a, 'a, 'a, 'b, 'c, 'c, 'a, 'a, 'd, 'e, 'e, 'e, 'e)) should be (List((4,'a), (1,'b), (2,'c), (2,'a), (1,'d), (4,'e)))
-      }
-    }
+//    // P07 (**) Flatten a nested list structure.
+//    describe("P07") {
+//      it("Flatten a nested list structure.") {
+//        flatten(List(List(1, 1), 2, List(3, List(5, 8)))) should be (List(1, 1, 2, 3, 5, 8))
+//      }
+//    }
+//
+//    // P08 (**) Eliminate consecutive duplicates of list elements.
+//    // If a list contains repeated elements they should be replaced with a single copy of the element.
+//    // The order of the elements should not be changed.
+//    describe("P08") {
+//      it("Eliminate consecutive duplicates of list elements.") {
+//        compress(List('a, 'a, 'a, 'a, 'b, 'c, 'c, 'a, 'a, 'd, 'e, 'e, 'e, 'e)) should be (List('a, 'b, 'c, 'a, 'd, 'e))
+//      }
+//    }
+//
+//    // P09 (**) Pack consecutive duplicates of list elements into sublists.
+//    // If a list contains repeated elements they should be placed in separate sublists.
+//    describe("P09") {
+//      it("Pack consecutive duplicates of list elements into sublists.") {
+//        pack(List('a, 'a, 'a, 'a, 'b, 'c, 'c, 'a, 'a, 'd, 'e, 'e, 'e, 'e)) should be (List(List('a, 'a, 'a, 'a), List('b), List('c, 'c), List('a, 'a), List('d), List('e, 'e, 'e, 'e)))
+//      }
+//    }
+//
+//    // P10 (*) Run-length encoding of a list.
+//    // Use the result of problem P09 to implement the so-called run-length encoding data compression method.
+//    // Consecutive duplicates of elements are encoded as tuples (N, E) where N is the number of duplicates of the element E.
+//    describe("P10") {
+//      it("Run-length encoding of a list.") {
+//        encode(List('a, 'a, 'a, 'a, 'b, 'c, 'c, 'a, 'a, 'd, 'e, 'e, 'e, 'e)) should be (List((4,'a), (1,'b), (2,'c), (2,'a), (1,'d), (4,'e)))
+//      }
+//    }
 
   }
 
