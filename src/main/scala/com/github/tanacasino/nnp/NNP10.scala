@@ -75,15 +75,29 @@ trait NNP10 {
 
   // P04 (*) Find the number of elements of a list.
   def length(list: List[Int]): Int = {
-    list.length
+    //list.length
     //別解：再帰で
-//    def length0(list:List[Int], num:Int) = {
-//    }
+    def length0(list0:List[Int], num:Int): Int = {
+      list0 match {
+        case Nil => num
+        case x => length0(x.tail, num + 1) // tailは
+      }
+    }
+    length0(list, 0)
   }
 
   // P05 (*) Reverse a list.\
   def reverse(list: List[Int]): List[Int] = {
-    list.reverse
+    // 単純な方法
+    //list.reverse
+    // 別解：再帰で
+    def reverse0(ls:List[Int], acc: List[Int]): List[Int] = {
+      ls match {
+        case Nil => acc
+        case _ => reverse0(ls.tail, ls.head :: acc)
+      }
+    }
+    reverse0(list, Nil)
   }
 
   // P06 (*) Find out whether a list is a palindrome.
@@ -91,28 +105,61 @@ trait NNP10 {
   def isPalindrome(list: List[Int]): Boolean = {
     //単純な方法
     list == list.reverse
-
     //別解：再帰で書いてみる
-
   }
 
+  // P07 (**) Flatten a nested list structure.
+  // flatten(List(List(1, 1), 2, List(3, List(5, 8)))) should be (List(1, 1, 2, 3, 5, 8))
   def flatten(nested: List[Any]): List[Any] = {
     // 深くネストしているListを平坦化
     ???
   }
 
+  // P08 (**) Eliminate consecutive duplicates of list elements.
+  // 同じ値が連続している要素をひとつの要素にまとめてゆく
+  //compress(List('a, 'a, 'a, 'a, 'b, 'c, 'c, 'a, 'a, 'd, 'e, 'e, 'e, 'e)) should be (List('a, 'b, 'c, 'a, 'd, 'e))
   def compress(list: List[Symbol]): List[Symbol] = {
-    // 同じ値が連続している要素をひとつの要素にまとめてゆく
-//    if (list(1).equals(list.head)) { compress(list.drop(1)) }
-//    list
-    ???
+    def compress0(list0: List[Symbol], acc: List[Symbol]): List[Symbol] = {
+      list0 match {
+        case Nil => acc
+        case _ => {
+          if (!acc.isEmpty && acc.head == list0.head) compress0(list0.tail, acc)
+          else compress0(list0.tail, list0.head :: acc)
+        }
+        // 模範解答はこれらしい
+        // case Nil => acc.reverse
+        // case x :: xs => compress0(xs.dropWhile(a => a == x), x::acc)
+      }
+    }
+    compress0(list,Nil).reverse
   }
 
+  // P09 (**) Pack consecutive duplicates of list elements into sublists.
+  // pack(List('a, 'a, 'a, 'a, 'b, 'c, 'c, 'a, 'a, 'd, 'e, 'e, 'e, 'e)) should be (List(List('a, 'a, 'a, 'a), List('b), List('c, 'c), List('a, 'a), List('d), List('e, 'e, 'e, 'e)))
   def pack(list: List[Symbol]): List[List[Symbol]] = {
-    // compressの逆
-    ???
+    def pack0(ls: List[Symbol], acc:List[List[Symbol]]): List[List[Symbol]] = {
+      ls match {
+        case Nil => acc
+        case _ => {
+          acc match {
+            case Nil =>
+              pack0(ls.tail, List(ls.head) :: acc)
+            case x :: xs => {
+              if (x.head == ls.head) {
+                pack0(ls.tail, acc.updated(0, ls.head +: acc.head))
+              } else {
+                pack0(ls.tail, List(ls.head) :: acc)
+              }
+            }
+          }
+        }
+      }
+    }
+    pack0(list, Nil).reverse
   }
 
+  // P10
+  //encode(List('a, 'a, 'a, 'a, 'b, 'c, 'c, 'a, 'a, 'd, 'e, 'e, 'e, 'e)) should be (List((4,'a), (1,'b), (2,'c), (2,'a), (1,'d), (4,'e)))
   def encode(list: List[Symbol]): List[(Int, Symbol)] = {
     ???
   }
