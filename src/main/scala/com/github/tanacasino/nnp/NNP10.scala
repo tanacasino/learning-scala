@@ -119,6 +119,7 @@ trait NNP10 {
   // 同じ値が連続している要素をひとつの要素にまとめてゆく
   //compress(List('a, 'a, 'a, 'a, 'b, 'c, 'c, 'a, 'a, 'd, 'e, 'e, 'e, 'e)) should be (List('a, 'b, 'c, 'a, 'd, 'e))
   def compress(list: List[Symbol]): List[Symbol] = {
+    @scala.annotation.tailrec
     def compress0(list0: List[Symbol], acc: List[Symbol]): List[Symbol] = {
       list0 match {
         case Nil => acc
@@ -137,6 +138,7 @@ trait NNP10 {
   // P09 (**) Pack consecutive duplicates of list elements into sublists.
   // pack(List('a, 'a, 'a, 'a, 'b, 'c, 'c, 'a, 'a, 'd, 'e, 'e, 'e, 'e)) should be (List(List('a, 'a, 'a, 'a), List('b), List('c, 'c), List('a, 'a), List('d), List('e, 'e, 'e, 'e)))
   def pack(list: List[Symbol]): List[List[Symbol]] = {
+    @scala.annotation.tailrec
     def pack0(ls: List[Symbol], acc:List[List[Symbol]]): List[List[Symbol]] = {
       ls match {
         case Nil => acc
@@ -161,7 +163,21 @@ trait NNP10 {
   // P10
   //encode(List('a, 'a, 'a, 'a, 'b, 'c, 'c, 'a, 'a, 'd, 'e, 'e, 'e, 'e)) should be (List((4,'a), (1,'b), (2,'c), (2,'a), (1,'d), (4,'e)))
   def encode(list: List[Symbol]): List[(Int, Symbol)] = {
-    ???
+    def encode0(ls: List[Symbol], acc: List[(Int, Symbol)]): List[(Int, Symbol)] = {
+      ls match {
+        case Nil => acc
+        case _ => {
+          acc match {
+            case Nil => encode0(ls.tail, List((1, ls.head)))
+            case x :: xs => {
+              if (x._2 == ls.head) encode0(ls.tail, acc.updated(0, (x._1 + 1, ls.head)))
+              else encode0(ls.tail, (1,ls.head) :: acc)
+            }
+          }
+        }
+      }
+    }
+    encode0(list, Nil).reverse
   }
 
 }
