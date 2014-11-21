@@ -11,6 +11,8 @@ class NNP10Spec extends FunSpec with Matchers with NNP10 {
     describe("P01") {
       it("Find the last element of a list.") {
         last(List(1, 1, 2, 3, 5, 8)) should be (8)
+        last1(List(1, 1, 2, 3, 5, 8)) should be (8)
+        last2(List(1, 1, 2, 3, 5, 8)) should be (8)
       }
     }
 
@@ -18,6 +20,7 @@ class NNP10Spec extends FunSpec with Matchers with NNP10 {
     describe("P02") {
       it("Find the last but one element of a list.") {
         penultimate(List(1, 1, 2, 3, 5, 8)) should be (5)
+        penultimate2(List(1, 1, 2, 3, 5, 8)) should be (5)
       }
     }
 
@@ -25,6 +28,7 @@ class NNP10Spec extends FunSpec with Matchers with NNP10 {
     describe("P03") {
       it("Find the Kth element of a list.") {
         nth(2, List(1, 1, 2, 3, 5, 8)) should be (2)
+        nth2(2, List(1, 1, 2, 3, 5, 8)) should be (2)
       }
     }
 
@@ -32,6 +36,7 @@ class NNP10Spec extends FunSpec with Matchers with NNP10 {
     describe("P04") {
       it("Find the number of elements of a list.") {
         length(List(1, 1, 2, 3, 5, 8)) should be (6)
+        length2(List(1, 1, 2, 3, 5, 8)) should be (6)
       }
     }
 
