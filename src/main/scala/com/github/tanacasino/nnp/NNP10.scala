@@ -40,13 +40,18 @@ trait NNP10 {
   }
 
   def pack(list: List[Symbol]): List[List[Symbol]] = {
-    ???
+    list.foldLeft(Nil:List[List[Symbol]]) {
+      case (x :: xs, s) if (x.head == s) => (s :: x) :: xs
+      case (ls, s) => List(s) :: ls
+    }.reverse
   }
 
   def encode(list: List[Symbol]): List[(Int, Symbol)] = {
-    ???
+    list.foldLeft(Nil:List[(Int,Symbol)]) {
+      case ((ct, sym) :: tail, s) if (sym == s) => (ct + 1, s) :: tail
+      case (ls, s) => (1, s) :: ls
+    }.reverse
   }
-
 }
 
 
