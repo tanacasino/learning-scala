@@ -7,40 +7,84 @@ class NNP10Spec extends FunSpec with Matchers with NNP10 {
 
   describe("Ninety-Nine Scala Problems") {
 
-    // P01 (*) Find the last element of a list.
+    /*
+    P01 (*) Find the last element of a list.
+     */
     describe("P01") {
       it("Find the last element of a list.") {
         last(List(1, 1, 2, 3, 5, 8)) should be (8)
       }
     }
 
+    describe("P01r") {
+      it("Find the last element of a list.") {
+        last1(List(1, 1, 2, 3, 5, 8)) should be (8)
+      }
+    }
+
+
+    /*
     // P02 (*) Find the last but one element of a list.
+     */
     describe("P02") {
       it("Find the last but one element of a list.") {
         penultimate(List(1, 1, 2, 3, 5, 8)) should be (5)
       }
     }
 
+    describe("P02r") {
+      it("Find the last but one element of a list.") {
+        penultimate1(List(1, 1, 2, 3, 5, 8)) should be (5)
+      }
+    }
+
+
+    /*
     // P03 (*) Find the Kth element of a list.
+     */
     describe("P03") {
       it("Find the Kth element of a list.") {
         nth(2, List(1, 1, 2, 3, 5, 8)) should be (2)
       }
     }
 
+    describe("P03r") {
+      it("Find the Kth element of a list.") {
+        nth1(2, List(1, 1, 2, 3, 5, 8)) should be (2)
+      }
+    }
+
+    /*
     // P04 (*) Find the number of elements of a list.
+     */
     describe("P04") {
       it("Find the number of elements of a list.") {
         length(List(1, 1, 2, 3, 5, 8)) should be (6)
       }
     }
 
+    describe("P04r") {
+      it("Find the number of elements of a list.") {
+        length1(List(1, 1, 2, 3, 5, 8)) should be (6)
+      }
+    }
+
+
+    /*
     // P05 (*) Reverse a list.
+     */
     describe("P05") {
       it("Reverse a list") {
         reverse(List(1, 1, 2, 3, 5, 8)) should be (List(8, 5, 3, 2, 1, 1))
       }
     }
+
+    describe("P05r") {
+      it("Reverse a list") {
+        reverse1(List(1, 1, 2, 3, 5, 8)) should be (List(8, 5, 3, 2, 1, 1))
+      }
+    }
+
 
     // P06 (*) Find out whether a list is a palindrome.
     describe("P06") {
