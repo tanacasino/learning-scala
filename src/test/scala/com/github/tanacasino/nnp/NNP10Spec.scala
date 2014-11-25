@@ -12,12 +12,20 @@ class NNP10Spec extends FunSpec with Matchers with NNP10 {
       it("Find the last element of a list.") {
         last(List(1, 1, 2, 3, 5, 8)) should be (8)
       }
+
+      it("Find the last element of a list.1") {
+        last1(List(1, 1, 2, 3, 5, 8)) should be (8)
+      }
     }
 
     // P02 (*) Find the last but one element of a list.
     describe("P02") {
       it("Find the last but one element of a list.") {
         penultimate(List(1, 1, 2, 3, 5, 8)) should be (5)
+      }
+
+      it("Find the last but one element of a list.1") {
+        penultimate1(List(1, 1, 2, 3, 5, 8)) should be (5)
       }
     }
 
@@ -26,6 +34,10 @@ class NNP10Spec extends FunSpec with Matchers with NNP10 {
       it("Find the Kth element of a list.") {
         nth(2, List(1, 1, 2, 3, 5, 8)) should be (2)
       }
+
+      it("Find the Kth element of a list.1") {
+        nth1(2, List(1, 1, 2, 3, 5, 8)) should be (2)
+      }
     }
 
     // P04 (*) Find the number of elements of a list.
@@ -33,12 +45,20 @@ class NNP10Spec extends FunSpec with Matchers with NNP10 {
       it("Find the number of elements of a list.") {
         length(List(1, 1, 2, 3, 5, 8)) should be (6)
       }
+
+      it("Find the number of elements of a list.1") {
+        length1(List(1, 1, 2, 3, 5, 8)) should be (6)
+      }
     }
 
     // P05 (*) Reverse a list.
     describe("P05") {
       it("Reverse a list") {
         reverse(List(1, 1, 2, 3, 5, 8)) should be (List(8, 5, 3, 2, 1, 1))
+      }
+
+      it("Reverse a list.1") {
+        reverse1(List(1, 1, 2, 3, 5, 8)) should be (List(8, 5, 3, 2, 1, 1))
       }
     }
 
