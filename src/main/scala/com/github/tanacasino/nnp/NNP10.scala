@@ -128,12 +128,12 @@ trait NNP10 {
     compress0(list, Nil)
   }
 
-  def compress0(list: List[Symbol]): List[Symbol] = {
+  def compress2(list: List[Symbol]): List[Symbol] = {
     @scala.annotation.tailrec
     def compress0(ls: List[Symbol], acc: List[Symbol]): List[Symbol] = {
       ls match {
-        case Nil => acc
-        case x :: xs => compress0(xs.dropWhile(_ == x), acc)
+        case Nil => acc.reverse
+        case x :: xs => compress0(xs.dropWhile(_ == x), x :: acc)
       }
     }
     compress0(list, Nil)

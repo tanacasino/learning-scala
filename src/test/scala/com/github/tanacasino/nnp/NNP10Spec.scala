@@ -67,6 +67,7 @@ class NNP10Spec extends FunSpec with Matchers with NNP10 {
     describe("P08") {
       it("Eliminate consecutive duplicates of list elements.") {
         compress(List('a, 'a, 'a, 'a, 'b, 'c, 'c, 'a, 'a, 'd, 'e, 'e, 'e, 'e)) should be (List('a, 'b, 'c, 'a, 'd, 'e))
+        compress2(List('a, 'a, 'a, 'a, 'b, 'c, 'c, 'a, 'a, 'd, 'e, 'e, 'e, 'e)) should be (List('a, 'b, 'c, 'a, 'd, 'e))
       }
     }
 
