@@ -27,13 +27,12 @@ class WordCount {
     } yield {
       word
     }
-
     words.groupBy(x => x)
     words.groupBy(_.toString)
     words.groupBy(x => identity(x))
     words.groupBy(identity(_))
     words.groupBy(identity).map(e => e._1 -> e._2.size)
-    words.groupBy(identity).map{case (word, `words`) => word -> words.size}
+    words.groupBy(identity).map{ case (word, list) => word -> list.size}
   }
 
 
