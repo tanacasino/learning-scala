@@ -109,7 +109,17 @@ trait NNP10 {
   def flatten(nested: List[Any]): List[Any] = {
     // うーん難しいですねー
 //    nested.flatten
-    ???
+    @scala.annotation.tailrec
+    def flatten0(ls: List[Any], acc: List[Any]): List[Any] = {
+      ls match {
+        case Nil => acc.reverse
+        case (x: List[_]) :: Nil => flatten0(x, Nil)
+        case (x: Any) :: Nil => flatten0(x :: acc, Nil)
+        case (x: List[_]) :: xs => flatten0(x ::: acc, xs)
+        case (x: Any) :: xs => flatten0(x :: acc, xs)
+      }
+    }
+    flatten0(nested, Nil)
   }
 
   def compress(list: List[Symbol]): List[Symbol] = {
