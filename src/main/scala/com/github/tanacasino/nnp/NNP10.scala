@@ -112,7 +112,18 @@ trait NNP10 {
   // flatten(List(List(1, 1), 2, List(3, List(5, 8)))) should be (List(1, 1, 2, 3, 5, 8))
   def flatten(nested: List[Any]): List[Any] = {
     // 深くネストしているListを平坦化
-    ???
+    // 模範解答ここから
+    def flatten0(acc: List[Any], ls: List[Any]): List[Any] ={
+      ls match {
+        case Nil => acc
+        case (x: List[_]) :: Nil => flatten0(acc, x)
+        case (x: Any) :: Nil => x :: acc
+        case (x: List[_]) :: xs => flatten0(acc, x ::: xs)
+        case (x: Any) :: xs => flatten0(x :: acc, xs)
+      }
+    }
+    flatten0(List.empty, nested).reverse
+    // 模範解答ここまで
   }
 
   // P08 (**) Eliminate consecutive duplicates of list elements.
