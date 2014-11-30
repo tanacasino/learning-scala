@@ -1,16 +1,16 @@
 package com.github.tanacasino.sample2
 
 
-class Unapply(val name: String, val age: Int, val dead: Boolean)
+class Tanaka(val name: String, val age: Int, val dead: Boolean)
 
 
-object Unapply {
+object Tanaka {
 
   // ファクトリ
-  def apply(name: String, age: Int, dead: Boolean): Unapply = new Unapply(name, age, dead)
+  def apply(name: String, age: Int, dead: Boolean): Tanaka = new Tanaka(name, age, dead)
 
   // 抽出子(Extractor)
-  def unapply(u: Unapply): Option[(String, Int, Boolean)] = {
+  def unapply(u: Tanaka): Option[(String, Int, Boolean)] = {
     Some((u.name, u.age, u.dead))
   }
 
@@ -20,16 +20,16 @@ object Unapply {
 object UnapplyUsing {
 
   def use = {
-    val u = Unapply("name", 1, false)
+    val u = Tanaka("name", 1, false)
     // 抽出！！！
-    val Unapply(name, age, dead) = u
+    val Tanaka(name, age, dead) = u
     println(name, age, dead)
 
-    val Some((n1, a1, d1)) = Unapply.unapply(u)
+    val Some((n1, a1, d1)) = Tanaka.unapply(u)
 
     val x = u match {
       // 抽出！ これつまり class ではなく object ？？？
-      case Unapply(n, a, d) =>
+      case Tanaka(n, a, d) =>
         (n, a, d)
       case _ => ("", 1, false)
     }
