@@ -1,35 +1,35 @@
 package com.github.tanacasino.sample2
 
 
-class Unapply(val name: String, val age: Int, val dead: Boolean)
+class Extractors(val name: String, val age: Int, val dead: Boolean)
 
 
-object Unapply {
+object Extractors {
 
   // ファクトリ
-  def apply(name: String, age: Int, dead: Boolean): Unapply = new Unapply(name, age, dead)
+  def apply(name: String, age: Int, dead: Boolean): Extractors = new Extractors(name, age, dead)
 
   // 抽出子(Extractor)
-  def unapply(u: Unapply): Option[(String, Int, Boolean)] = {
+  def unapply(u: Extractors): Option[(String, Int, Boolean)] = {
     Some((u.name, u.age, u.dead))
   }
 
 }
 
 
-object UnapplyUsing {
+object ExtractorsUsing {
 
   def use = {
-    val u = Unapply("name", 1, false)
+    val u = Extractors("name", 1, false)
     // 抽出！！！
-    val Unapply(name, age, dead) = u
+    val Extractors(name, age, dead) = u
     println(name, age, dead)
 
-    val Some((n1, a1, d1)) = Unapply.unapply(u)
+    val Some((n1, a1, d1)) = Extractors.unapply(u)
 
     val x = u match {
       // 抽出！ これつまり class ではなく object ？？？
-      case Unapply(n, a, d) =>
+      case Extractors(n, a, d) =>
         (n, a, d)
       case _ => ("", 1, false)
     }
