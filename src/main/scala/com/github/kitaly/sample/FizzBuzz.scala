@@ -1,4 +1,4 @@
-package com.github.tanacasino.sample
+package com.github.kitaly.sample
 
 import scala.collection.immutable.Range.Inclusive
 import scala.util.Try

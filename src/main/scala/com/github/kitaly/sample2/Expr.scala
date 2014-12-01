@@ -1,4 +1,4 @@
-package com.github.tanacasino.sample2
+package com.github.kitaly.sample2
 
 /**
  * Created by kitagawa on 2014/11/28.

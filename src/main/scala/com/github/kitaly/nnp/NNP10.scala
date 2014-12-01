@@ -1,4 +1,4 @@
-package com.github.tanacasino.nnp
+package com.github.kitaly.nnp
 
 import scala.collection.immutable
 

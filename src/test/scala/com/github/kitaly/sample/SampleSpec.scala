@@ -1,4 +1,4 @@
-package com.github.tanacasino.sample
+package com.github.kitaly.sample
 
 import collection.mutable.Stack
 import org.scalatest._
