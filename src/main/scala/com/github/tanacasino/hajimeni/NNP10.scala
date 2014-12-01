@@ -100,6 +100,16 @@ trait NNP10 {
     compressList(List.empty, list).reverse
   }
 
+  def compress1(list: List[Symbol]): List[Symbol] = {
+    @tailrec
+    def compress0(acc: List[Symbol], ls: List[Symbol]): List[Symbol] = ls match {
+      case Nil => acc
+      case x :: xs => compress0(x :: acc, xs.dropWhile(_ == x))
+
+    }
+    compress0(List.empty[Symbol], list).reverse
+  }
+
   def pack(list: List[Symbol]): List[List[Symbol]] = {
     def packList(result: List[List[Symbol]], source: List[Symbol]): List[List[Symbol]] = {
       source match {
@@ -111,8 +121,25 @@ trait NNP10 {
     packList(List.empty, list).reverse
   }
 
+  def pack1(list: List[Symbol]): List[List[Symbol]] = {
+    def pack0(acc: List[List[Symbol]], ls: List[Symbol]): List[List[Symbol]] = ls match {
+      case Nil => acc
+      case x :: xs => pack0((x :: xs.takeWhile(_ == x)) :: acc, xs.dropWhile(_ == x))
+    }
+
+    pack0(List.empty, list).reverse
+  }
+
   def encode(list: List[Symbol]): List[(Int, Symbol)] = {
     pack(list).map(l => (l.length, l.head))
+  }
+
+  def encode1(list: List[Symbol]): List[(Int, Symbol)] = {
+    def encode0(acc: List[(Int, Symbol)], ls: List[Symbol]): List[(Int, Symbol)] = ls match {
+      case Nil => acc
+      case x :: xs => encode0((xs.takeWhile(_ == x).length + 1, x) :: acc, xs.dropWhile(_ == x))
+    }
+    encode0(List.empty, list).reverse
   }
 
 }
