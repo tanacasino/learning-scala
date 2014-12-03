@@ -17,6 +17,7 @@ case class Branch(left: Node, n: Int, right: Node) extends Node {
   def sum: Int = left.sum + n + right.sum
 }
 
+
 case class BTree(node: Node) {
   def size = node.size
 
@@ -49,6 +50,20 @@ case class BTree(node: Node) {
     }
     find0(i, node)
   }
+}
+
+// List からNodeを作成する
+case class LNode(list: List[Any]) {
+  def convert: Node = list match {
+    case List(x: Int) => Leaf(x: Int)
+    case List(x1:Int, x2: Int, x3:Int) => Branch(Leaf(x1), x2, Leaf(x3))
+    case List(x1:List[Any], x2: Int, x3: List[Any]) => Branch(LNode(x1).convert, x2, LNode(x3).convert)
+  }
+}
+
+// List からBTreeを生成する
+case class LBTree(list: List[Any]) {
+  def convert = BTree(LNode(list).convert)
 }
 
 

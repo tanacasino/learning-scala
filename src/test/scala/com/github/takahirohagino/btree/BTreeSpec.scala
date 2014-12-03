@@ -9,9 +9,12 @@ class BTreeSpec extends FunSpec with Matchers {
   describe("BTree") {
 
     describe("Create BTree with Leaf and Branch combination") {
-      val bTree1 = BTree(Leaf(1))
-      val bTree2 = BTree(Branch(Leaf(1), 2, Leaf(3)))
-      val bTree3 = BTree(Branch(Branch(Leaf(1), 2, Leaf(3)), 4, Branch(Leaf(5), 6, Leaf(7))))
+      val bTree1 = LBTree(List(1)).convert
+      val bTree2 = LBTree(List(List(1), 2, List(3))).convert
+      val bTree3 = LBTree(List(List(List(1), 2, List(3)), 4, List(List(5), 6, List(7)))).convert
+      // val bTree1 = BTree(Leaf(1))
+      // val bTree2 = BTree(Branch(Leaf(1), 2, Leaf(3)))
+      // val bTree3 = BTree(Branch(Branch(Leaf(1), 2, Leaf(3)), 4, Branch(Leaf(5), 6, Leaf(7))))
 
       println(bTree1)
       println(bTree2)
@@ -57,6 +60,7 @@ class BTreeSpec extends FunSpec with Matchers {
         bTree3.find(8) should be (false)
         bTree3.find(0) should be (false)
       }
+
     }
 
   }
