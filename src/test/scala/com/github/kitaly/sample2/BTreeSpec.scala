@@ -20,12 +20,30 @@ class BTreeSpec extends FunSpec with Matchers{
     println(size2)
     println(size3)
 
-    println(bTree3.max)
-    println(bTree3.min)
-    println(bTree3.sum)
-    println(bTree3.avg)
+    val max3: Int = bTree3.max
+    println(max3)
+
+    val min3: Int = bTree3.min
+    println(min3)
+
+    val sum3: Int = bTree3.sum
+    println(sum3)
+
+    val avg3: Float = bTree3.avg
+    println(avg3)
+
     println(bTree3.find(4))
     println(bTree3.find(2))
     println(bTree3.find(3))
+
+    val listToBTree1 = BTree(List(1))
+    println(listToBTree1)
+    println(listToBTree1 == bTree1)
+    val listToBTree2 = BTree(List(1, 2, 3))
+    println(listToBTree2)
+    println(listToBTree2 == bTree2)
+    val listToBTree3 = BTree(List(1, 2, 3, 4, 5, 6, 7))
+    println(listToBTree3)
+    println(listToBTree3 == bTree3)
   }
 }

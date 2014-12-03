@@ -26,10 +26,15 @@ case class Branch(left: Node, value: Int, right: Node) extends Node {
   def min: Int = List(left.min, value, right.min).min
   def sum: Int = left.sum + value + right.sum
   def avg: Float = sum / size
+
+//  def find(x:Int): Option[Node] = {
+//    if (x == value) Some(this)
+//    else if (left.find(x).isDefined) left.find(x)
+//    else right.find(x)
+//  }
   def find(x:Int): Option[Node] = {
     if (x == value) Some(this)
-    else if (left.find(x).isDefined) left.find(x)
-    else right.find(x)
+    else left.find(x).orElse(right.find(x))
   }
 }
 
@@ -40,4 +45,29 @@ case class BTree(node: Node) {
   def sum: Int = node.sum
   def avg: Float = node.avg
   def find(x:Int): Option[Node] = node.find(x)
+}
+
+object BTree {
+
+  /**
+   * 1
+   * 1, [2], 3
+   * 1, 2, 3, [4], 5, 6, 7
+   * 1, 2, 3, 4, 5, 6, 7, [8], 9, 10, 11, 12, 13, 14,15
+   */
+  def apply(list:List[Int]): BTree = {
+
+    def buildNode(ls: List[Int]): Node = {
+      ls.length match {
+        case 1 => Leaf(ls.head)
+        case x if (x >= 3) =>
+          val midIndex: Int = (x - 1) / 2
+          val mid: Int = ls(midIndex)
+          val right: List[Int] = ls.slice(midIndex + 1, x)
+          val left: List[Int] = ls.slice(0, midIndex)
+          Branch(buildNode(left), mid, buildNode(right))
+      }
+    }
+    BTree(buildNode(list))
+  }
 }
