@@ -1,5 +1,6 @@
 package com.github.tanacasino.rational
 
+
 import org.scalatest._
 
 

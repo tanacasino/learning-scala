@@ -1,5 +1,6 @@
 package com.github.tanacasino
 
+
 package object types {
 
   // クラス定義

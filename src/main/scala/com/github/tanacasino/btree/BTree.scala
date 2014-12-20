@@ -1,5 +1,6 @@
 package com.github.tanacasino.btree
 
+
 sealed trait Node {
   def size: Int
   def max: Int

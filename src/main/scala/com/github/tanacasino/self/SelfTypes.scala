@@ -1,5 +1,6 @@
 package com.github.tanacasino.self
 
+
 object SelfTypes {
   def compileCheck() = {
     (new Food).printAll

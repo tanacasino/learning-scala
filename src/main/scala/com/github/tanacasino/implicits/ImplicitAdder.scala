@@ -1,5 +1,6 @@
 package com.github.tanacasino.implicits
 
+
 trait Adder[A] {
   def add(x: A, y: A): A
 }

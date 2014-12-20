@@ -1,5 +1,6 @@
 package com.github.tanacasino.stackable
 
+
 import org.scalatest._
 
 class IntQueueSpec extends FunSpec with Matchers {

@@ -1,5 +1,6 @@
 package com.github.tanacasino.rational
 
+
 // 分数
 case class Rational(n: Int, d: Int) {
   def +(that: Rational): Rational = {
