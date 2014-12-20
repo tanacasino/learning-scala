@@ -1,6 +1,5 @@
 package com.github.tanacasino.sample2
 
-
 // Singleton のオブジェクト相当のものになります
 object Objecton {
 

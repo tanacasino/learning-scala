@@ -1,6 +1,5 @@
 package com.github.tanacasino.sample
 
-
 class WordCount {
 
  def countFruitsFromLines(lines: List[String]): Map[String, Int] = {

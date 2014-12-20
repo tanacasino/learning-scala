@@ -1,6 +1,5 @@
 package com.github.tanacasino.sample2
 
-
 class Klass(name: String, age: Int) {
 
   // デフォルトコンストラクタ内の処理になる 基本コンストラクタ
