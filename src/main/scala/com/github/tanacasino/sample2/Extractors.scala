@@ -1,6 +1,5 @@
 package com.github.tanacasino.sample2
 
-
 class Extractors(val name: String, val age: Int, val dead: Boolean)
 
 
