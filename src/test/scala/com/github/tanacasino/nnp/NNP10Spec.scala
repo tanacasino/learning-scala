@@ -12,6 +12,7 @@ class NNP10Spec extends FunSpec with Matchers with NNP10 {
       it("Find the last element of a list.") {
         last(List(1, 1, 2, 3, 5, 8)) should be (8)
         last1(List(1, 1, 2, 3, 5, 8)) should be (8)
+        last2(List(1, 1, 2, 3, 5, 8)) should be (8)
       }
     }
 
@@ -27,6 +28,7 @@ class NNP10Spec extends FunSpec with Matchers with NNP10 {
     describe("P03") {
       it("Find the Kth element of a list.") {
         nth(2, List(1, 1, 2, 3, 5, 8)) should be (2)
+        nth2(2, List(1, 1, 2, 3, 5, 8)) should be (2)
       }
     }
 
@@ -55,16 +57,7 @@ class NNP10Spec extends FunSpec with Matchers with NNP10 {
     // P07 (**) Flatten a nested list structure.
     describe("P07") {
       it("Flatten a nested list structure.") {
-        val nested1 = List(List(1, 1), 2, List(3, List(5, 8)))
-        flattenByCasino(nested1) should be (List(1, 1, 2, 3, 5, 8))
-        flattenByK(nested1) should be (List(1, 1, 2, 3, 5, 8))
-        flatten2(nested1) should be (List(1, 1, 2, 3, 5, 8))
-        flatten3(nested1) should be (List(1, 1, 2, 3, 5, 8))
-
-        val nested2 = List(List(1, 1), 2, List(3, List(5, 8)), List(15, List(11, 12), List(13, List(14, 15))))
-        flattenByCasino(nested2) should be (List(1, 1, 2, 3, 5, 8, 15, 11, 12, 13, 14, 15))
-        flatten2(nested2) should be (List(1, 1, 2, 3, 5, 8, 15, 11, 12, 13, 14, 15))
-        //flattenByK(nested2) should be (List(1, 1, 2, 3, 5, 8, 15, 11, 12, 13, 14, 15))
+        flatten(List(List(1, 1), 2, List(3, List(5, 8)))) should be (List(1, 1, 2, 3, 5, 8))
       }
     }
 
@@ -76,7 +69,6 @@ class NNP10Spec extends FunSpec with Matchers with NNP10 {
         compress(List('a, 'a, 'a, 'a, 'b, 'c, 'c, 'a, 'a, 'd, 'e, 'e, 'e, 'e)) should be (List('a, 'b, 'c, 'a, 'd, 'e))
         compress2(List('a, 'a, 'a, 'a, 'b, 'c, 'c, 'a, 'a, 'd, 'e, 'e, 'e, 'e)) should be (List('a, 'b, 'c, 'a, 'd, 'e))
       }
-
     }
 
     // P09 (**) Pack consecutive duplicates of list elements into sublists.
@@ -84,7 +76,6 @@ class NNP10Spec extends FunSpec with Matchers with NNP10 {
     describe("P09") {
       it("Pack consecutive duplicates of list elements into sublists.") {
         pack(List('a, 'a, 'a, 'a, 'b, 'c, 'c, 'a, 'a, 'd, 'e, 'e, 'e, 'e)) should be (List(List('a, 'a, 'a, 'a), List('b), List('c, 'c), List('a, 'a), List('d), List('e, 'e, 'e, 'e)))
-        pack2(List('a, 'a, 'a, 'a, 'b, 'c, 'c, 'a, 'a, 'd, 'e, 'e, 'e, 'e)) should be (List(List('a, 'a, 'a, 'a), List('b), List('c, 'c), List('a, 'a), List('d), List('e, 'e, 'e, 'e)))
       }
     }
 
@@ -93,9 +84,10 @@ class NNP10Spec extends FunSpec with Matchers with NNP10 {
     // Consecutive duplicates of elements are encoded as tuples (N, E) where N is the number of duplicates of the element E.
     describe("P10") {
       it("Run-length encoding of a list.") {
-        encode2(List('a, 'a, 'a, 'a, 'b, 'c, 'c, 'a, 'a, 'd, 'e, 'e, 'e, 'e)) should be (List((4,'a), (1,'b), (2,'c), (2,'a), (1,'d), (4,'e)))
+        encode(List('a, 'a, 'a, 'a, 'b, 'c, 'c, 'a, 'a, 'd, 'e, 'e, 'e, 'e)) should be (List((4,'a), (1,'b), (2,'c), (2,'a), (1,'d), (4,'e)))
       }
     }
+
   }
 
 }

@@ -1,39 +1,52 @@
 package com.github.tanacasino.sample
 
-
+/**
+ * Created by shintaro.tamaki on 2014/11/10.
+ */
 class WordCount {
 
- def countFruitsFromLines(lines: List[String]): Map[String, Int] = {
-   lines
-     .flatMap(_.split(" "))
-     .groupBy(identity)
-     .map{
-       case (k, v) => (k, v.size)
-     }
- }
-
-  def countFruitsFromLines2(lines: List[String]): Map[String, Int] = {
+  def countFruitsFromLines(lines: List[String]): Map[String, Int] = {
+    //TODO:ここに記述
     lines
       .flatMap(_.split(" "))
-      .foldLeft(Map.empty[String, Int]){ case (result, keyword) =>
-        result + (keyword -> (result.getOrElse(keyword, 0) + 1))
+      .groupBy(identity)
+      .map {
+        case (k, v) => (k, v.size)
       }
   }
 
-  def countFruitsFromLines3(lines: List[String]): Map[String, Int] = {
-    val words = for {
-      line <- lines
-      word <- line.split(" ")
-    } yield {
-      word
+  def countFruitsFromLines2(lines: List[String]): Map[String, Int] = {
+    //TODO:ここに記述
+    lines
+      .flatMap(_.split(" "))
+      .foldLeft(Map.empty[String, Int]) { case (result, keyword) =>
+        result + (keyword -> (result.getOrElse(keyword, 0) + 1))
     }
-    words.groupBy(x => x)
-    words.groupBy(_.toString)
-    words.groupBy(x => identity(x))
-    words.groupBy(identity(_))
-    words.groupBy(identity).map(e => e._1 -> e._2.size)
-    words.groupBy(identity).map{ case (word, list) => word -> list.size}
   }
 
+//  def countFruitsFromLines3(lines: List[String]): Map[String, Int] = {
+//    //TODO:ここに記述
+//    lines.foldLeft(Map.empty[String, Int]) { case (result, line) =>
+//      line.split(" ").map( m => {
+//        result += (m -> (result.getOrElse(m, 0) + 1))
+//      })
+//      result
+//    }
+//  }
+
+  /**
+   * 金曜日の勉強会で負けたもの
+   * @param lines
+   * @return
+   */
+  def countFruitsFromLinesLoser(lines: List[String]): Map[String, Int] = {
+    lines.foldLeft(new scala.collection.mutable.HashMap[String, Int]) { (b, line) =>
+      line.split(" ").map( m => {
+        val cnt:Int = b.get(m).getOrElse(0) + 1
+        b.put(m, cnt)
+      })
+      b
+    }.toMap
+  }
 
 }

@@ -1,7 +1,5 @@
 package com.github.tanacasino.nnp
 
-import java.util
-import collection.JavaConverters._
 
 trait NNP10 {
 
@@ -19,7 +17,8 @@ trait NNP10 {
     }
   }
 
-  def last2(list: List[Int]): Int = {
+  @scala.annotation.tailrec
+  final def last2(list: List[Int]): Int = {
     list.length match {
       case 0 => throw new NoSuchElementException
       case 1 => list.head
@@ -44,6 +43,16 @@ trait NNP10 {
     }
   }
 
+  @scala.annotation.tailrec
+  final def penultimate3(list: List[Int]): Int = {
+    list.length match {
+      case 0 => throw new NoSuchElementException
+      case 1 => throw new NoSuchElementException
+      case 2 => list.head
+      case n => penultimate3(list.tail)
+    }
+  }
+
   def nth(n: Int, list: List[Int]): Int = {
     list(n)
   }
@@ -52,30 +61,25 @@ trait NNP10 {
   final def nth2(n: Int, list: List[Int]): Int = {
     require(0 <= n)
     require(n <= list.length)
-    if(n == 0) {
+
+    if (n == 0) {
       list.head
-    } else {
+    }
+    else {
       nth2(n - 1, list.tail)
     }
   }
-
-  @scala.annotation.tailrec
-  final def nth3(n: Int, list: List[Int]): Int = {
-    n match {
-      case 0 => list.head
-      case i => nth3(i - 1, list.tail)
-    }
-  }
-
 
   def length(list: List[Int]): Int = {
     list.length
   }
 
   def length2(list: List[Int]): Int = {
+    @scala.annotation.tailrec
     def length0(size: Int, ls: List[Int]): Int = {
       ls match {
         case Nil => size
+        case x :: Nil => size + 1
         case x :: xs => length0(size + 1, xs)
       }
     }
@@ -85,6 +89,7 @@ trait NNP10 {
   def reverse(list: List[Int]): List[Int] = {
     list.reverse
   }
+
 
   def reverse2(list: List[Int]): List[Int] = {
     @scala.annotation.tailrec
@@ -97,19 +102,43 @@ trait NNP10 {
     reverse0(list, Nil)
   }
 
-  def reverse3(list: List[Int]): List[Int] = {
-    list match {
-      case head :: Nil => head :: Nil
-      case head :: tail => reverse3(tail) ::: head :: Nil
-      case Nil => throw new NoSuchElementException
-    }
-  }
-
   def isPalindrome(list: List[Int]): Boolean = {
     list == list.reverse
   }
 
+  def flatten(nested: List[Any]): List[Any] = {
+    // うーん難しいですねー
+//    nested.flatten
+    @scala.annotation.tailrec
+    def flatten0(ls: List[Any], acc: List[Any]): List[Any] = {
+      ls match {
+        case Nil => acc.reverse
+        case (x: List[_]) :: Nil => flatten0(x, Nil)
+        case (x: Any) :: Nil => flatten0(x :: acc, Nil)
+        case (x: List[_]) :: xs => flatten0(x ::: acc, xs)
+        case (x: Any) :: xs => flatten0(x :: acc, xs)
+      }
+    }
+    flatten0(nested, Nil)
+  }
+
   def compress(list: List[Symbol]): List[Symbol] = {
+    @scala.annotation.tailrec
+    def compress0(ls: List[Symbol], acc: List[Symbol]): List[Symbol] = {
+      ls match {
+        case Nil => acc.reverse
+        case x :: xs => {
+          Some(x) == acc.headOption match {
+            case true => compress0(xs, acc)
+            case false => compress0(xs, x :: acc)
+          }
+        }
+      }
+    }
+    compress0(list, Nil)
+  }
+
+  def compress2(list: List[Symbol]): List[Symbol] = {
     @scala.annotation.tailrec
     def compress0(ls: List[Symbol], acc: List[Symbol]): List[Symbol] = {
       ls match {
@@ -120,134 +149,29 @@ trait NNP10 {
     compress0(list, Nil)
   }
 
+
   def pack(list: List[Symbol]): List[List[Symbol]] = {
     @scala.annotation.tailrec
-    def pack0(acc: List[List[Symbol]], ls: List[Symbol]): List[List[Symbol]] = {
+    def pack0(ls: List[Symbol], acc: List[List[Symbol]]): List[List[Symbol]] = {
       ls match {
-        case Nil => acc
-        case l => l.span(_ == l.head) match {
-          case (x, Nil) => x :: acc
-          case (x, y) => pack0(x :: acc, y)
-        }
+        case Nil => acc.reverse
+        case x :: xs => pack0(xs.dropWhile(_ == x), (x :: xs).takeWhile(_ == x) :: acc)
       }
     }
-    pack0(Nil, list).reverse
+    pack0(list, Nil)
   }
 
-  def pack2(list: List[Symbol]): List[List[Symbol]] = {
-    def pack0(acc: List[List[Symbol]], ls: List[Symbol]): List[List[Symbol]] = {
-      ls match {
-        case Nil => acc
-        case l @ head :: tail =>
-          val (x, y) = l.span(_ == head)
-          pack0(x :: acc, y)
-      }
-    }
-    pack0(Nil, list).reverse
-  }
-
-
-  def encode2(list: List[Symbol]): List[(Int, Symbol)] = {
-    pack2(list).map(l => l.size -> l.head)
-  }
-
-  def encode3(list: List[Symbol]): List[(Int, Symbol)] = {
-    def encode0(acc: List[(Int, Symbol)], ls: List[Symbol]): List[(Int, Symbol)] = ls match {
-      case Nil => acc.reverse
-      case l @ head :: _ =>
-        val (x, y) = l.span(_ == head)
-        encode0((x.size, x.head) :: acc, y)
-    }
-    encode0(Nil, list)
-  }
-
-
-  def flatten2(nested: List[Any]): List[Any] = {
+  def encode(list: List[Symbol]): List[(Int, Symbol)] = {
     @scala.annotation.tailrec
-    def flatten0(acc: List[Any], ls: List[Any]): List[Any] = {
+    def encode0(ls: List[Symbol], acc: List[(Int, Symbol)]): List[(Int, Symbol)] = {
       ls match {
-        case Nil => acc
-        case x :: xs => x match {
-          case l: List[_] => flatten0(acc, l ::: xs)
-          case v => flatten0(v :: acc, xs)
-        }
+        case Nil => acc.reverse
+        case x :: xs => encode0(xs.dropWhile(_ == x), ((x :: xs).prefixLength(_ == x), x) :: acc)
       }
     }
-    flatten0(Nil, nested).reverse
+    encode0(list, Nil)
   }
 
-  def flatten3(nested: List[Any]): List[Any] = {
-    @scala.annotation.tailrec
-    def flatten0(acc: List[Any], ls: List[Any]): List[Any] = {
-      ls match {
-        case Nil => acc
-        case (x: List[_]) :: xs  => flatten0(acc, x ::: xs)
-        case (x: Any)     :: xs  => flatten0(x :: acc, xs)
-      }
-    }
-    flatten0(List.empty, nested).reverse
-  }
-
-  def flattenByCasino(nested: List[Any]): List[Any] = {
-    @scala.annotation.tailrec
-    def flatten0(acc: List[Any], ls: List[Any]): List[Any] = {
-      ls match {
-        case Nil => acc
-        case (x: List[_]) :: xs => flatten0(acc, x ::: xs)
-        case x :: xs => flatten0(x :: acc, xs)
-      }
-    }
-    flatten0(List.empty, nested).reverse
-  }
-
-
-  def flattenByK(nested: List[Any]): List[Any] = {
-    def innerFlatten(acc: List[Any], rest: List[Any]): List[Any] = {
-      rest match {
-        case Nil => acc
-        case head :: tail => head match {
-          case list: List[_] =>
-            innerFlatten(acc, list ::: tail)
-          case value: Any =>
-            innerFlatten(value :: acc, tail)
-        }
-      }
-    }
-    innerFlatten(List(), nested).sortBy {
-      case i: Int => i
-      case any => 0
-    }
-  }
-
-  def compress2(list: List[Symbol]): List[Symbol] = {
-    @scala.annotation.tailrec
-    def compress0(acc: List[Symbol], ls: List[Symbol]): List[Symbol] = {
-      ls match {
-        case Nil => acc
-        case x :: Nil => if (acc.nonEmpty && acc.head == x) acc                else x :: acc
-        case x :: xs  => if (acc.nonEmpty && acc.head == x) compress0(acc, xs) else compress0(x :: acc, xs)
-      }
-    }
-    compress0(List.empty, list).reverse
-  }
-
-  def compress3(list: List[Symbol]): List[Symbol] = {
-    @scala.annotation.tailrec
-    def compress0(acc: List[Symbol], ls: List[Symbol]): List[Symbol] = {
-      ls match {
-        case Nil => acc
-        case x :: xs  => compress0(x :: acc, xs.dropWhile(_ == x))
-      }
-    }
-    compress0(List.empty, list).reverse
-  }
-
-
-  def hoge = {
-    val javalist = new util.ArrayList[String]()
-    javalist.asScala.foreach(println)
-    val jlist = List(1,2).asJava
-  }
 }
 
 
